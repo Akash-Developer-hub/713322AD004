@@ -108,7 +108,6 @@ const TopPosts: React.FC = () => {
           </Box>
         </Grid>
 
-        {/* Stats Cards */}
         <Grid item xs={12} sm={6} md={3}>
           <Card sx={{
             borderRadius: 2,
@@ -229,7 +228,6 @@ const TopPosts: React.FC = () => {
           </Card>
         </Grid>
 
-        {/* Posts List */}
         <Grid item xs={12}>
           <Card sx={{
             borderRadius: 2,

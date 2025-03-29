@@ -110,7 +110,6 @@ export default function TopUsersDashboard() {
 
       </div>
 
-      {/* Leaderboard */}
       <div className="mt-8 bg-white rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
           <h3 className="text-xl font-semibold text-gray-800">Top Contributors Leaderboard</h3>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, Avatar, CircularProgress, Box, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Avatar, CircularProgress, Box, Grid, Button } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import CommentIcon from '@mui/icons-material/Comment';
 
@@ -25,44 +25,8 @@ export default function FeedPage() {
     const fetchFeed = async () => {
       try {
         setLoading(true);
-        // Example data to match your API response
-        const exampleData: Post[] = [
-          {
-            id: 1,
-            userid: 101,
-            user_id: '101',
-            user_name: 'Alex Johnson',
-            content: 'Just shared our latest community update. Check out the new features!',
-            comment_count: 15,
-            created_at: '2 hours ago'
-          },
-          {
-            id: 2,
-            userid: 102,
-            user_id: '102',
-            user_name: 'Maria Garcia',
-            content: 'What are your thoughts on the new interface design? Looking for feedback.',
-            comment_count: 8,
-            created_at: '5 hours ago'
-          },
-          {
-            id: 3,
-            userid: 103,
-            user_id: '103',
-            user_name: 'Sam Wilson',
-            content: 'Excited to announce our upcoming community event next month!',
-            comment_count: 23,
-            created_at: '1 day ago'
-          }
-        ];
-        
-        // Simulate API call with timeout
-        await new Promise(resolve => setTimeout(resolve, 800));
-        setPosts(exampleData);
-        
-        // For real API call, uncomment this:
-        // const response = await axios.get('http://localhost:8000/posts?type=latest');
-        // setPosts(response.data);
+        const response = await axios.get('http://localhost:8000/posts?type=latest');
+        setPosts(response.data);
       } catch (error) {
         setError('Failed to load feed. Please try again later.');
         console.error('Error fetching feed:', error);
@@ -78,15 +42,14 @@ export default function FeedPage() {
   const totalComments = posts.reduce((sum, post) => sum + post.comment_count, 0);
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       backgroundColor: '#fefefe',
       minHeight: '100vh',
       p: 3
     }}>
       <Grid container spacing={3}>
-        {/* Dashboard Header */}
         <Grid item xs={12}>
-          <Box sx={{ 
+          <Box sx={{
             display: 'flex',
             alignItems: 'center',
             mb: 4,
@@ -95,12 +58,12 @@ export default function FeedPage() {
             borderRadius: 2,
             boxShadow: 1
           }}>
-            <ForumIcon sx={{ 
-              fontSize: 40, 
+            <ForumIcon sx={{
+              fontSize: 40,
               color: '#111933',
               mr: 2
             }} />
-            <Typography variant="h4" sx={{ 
+            <Typography variant="h4" sx={{
               fontWeight: 600,
               color: '#111933'
             }}>
@@ -111,7 +74,7 @@ export default function FeedPage() {
 
         {/* Stats Cards */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
+          <Card sx={{
             borderRadius: 2,
             boxShadow: 1,
             height: '100%'
@@ -123,7 +86,7 @@ export default function FeedPage() {
                 </Typography>
                 <ForumIcon sx={{ color: '#11193380' }} />
               </Box>
-              <Typography variant="h3" sx={{ 
+              <Typography variant="h3" sx={{
                 fontWeight: 700,
                 my: 1,
                 color: '#111933'
@@ -140,7 +103,7 @@ export default function FeedPage() {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
+          <Card sx={{
             borderRadius: 2,
             boxShadow: 1,
             height: '100%'
@@ -152,7 +115,7 @@ export default function FeedPage() {
                 </Typography>
                 <CommentIcon sx={{ color: '#11193380' }} />
               </Box>
-              <Typography variant="h3" sx={{ 
+              <Typography variant="h3" sx={{
                 fontWeight: 700,
                 my: 1,
                 color: '#111933'
@@ -168,37 +131,36 @@ export default function FeedPage() {
           </Card>
         </Grid>
 
-        {/* Posts List */}
         <Grid item xs={12}>
-          <Card sx={{ 
+          <Card sx={{
             borderRadius: 2,
             boxShadow: 1
           }}>
             <CardContent sx={{ p: 0 }}>
-              <Box sx={{ 
+              <Box sx={{
                 p: 3,
                 borderBottom: '1px solid #eee'
               }}>
-                <Typography variant="h5" sx={{ 
+                <Typography variant="h5" sx={{
                   fontWeight: 600,
                   color: '#111933'
                 }}>
                   Recent Activity
                 </Typography>
               </Box>
-              
+
               {loading ? (
-                <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'center', 
-                  alignItems: 'center', 
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   height: 200
                 }}>
                   <CircularProgress sx={{ color: '#111933' }} />
                 </Box>
               ) : error ? (
-                <Box sx={{ 
-                  p: 3, 
+                <Box sx={{
+                  p: 3,
                   textAlign: 'center',
                   color: '#d32f2f'
                 }}>
@@ -208,8 +170,8 @@ export default function FeedPage() {
                   </Typography>
                 </Box>
               ) : posts.length === 0 ? (
-                <Box sx={{ 
-                  p: 3, 
+                <Box sx={{
+                  p: 3,
                   textAlign: 'center',
                   color: '#11193399'
                 }}>
@@ -219,7 +181,7 @@ export default function FeedPage() {
                 <Box sx={{ p: 2 }}>
                   {posts.map((post) => (
                     <Box key={post.id} sx={{ mb: 2 }}>
-                      <Card sx={{ 
+                      <Card sx={{
                         boxShadow: 'none',
                         border: '1px solid #eee',
                         '&:hover': {
@@ -228,9 +190,9 @@ export default function FeedPage() {
                       }}>
                         <CardContent>
                           <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                            <Avatar 
-                              sx={{ 
-                                width: 48, 
+                            <Avatar
+                              sx={{
+                                width: 48,
                                 height: 48,
                                 mr: 2,
                                 backgroundColor: '#111933',
@@ -240,7 +202,7 @@ export default function FeedPage() {
                               {post.user_name?.charAt(0).toUpperCase() || 'A'}
                             </Avatar>
                             <Box>
-                              <Typography variant="h6" sx={{ 
+                              <Typography variant="h6" sx={{
                                 fontWeight: 600,
                                 color: '#111933'
                               }}>
@@ -253,17 +215,17 @@ export default function FeedPage() {
                               )}
                             </Box>
                           </Box>
-                          
-                          <Typography variant="body1" sx={{ 
+
+                          <Typography variant="body1" sx={{
                             mb: 3,
                             color: '#111933',
                             lineHeight: 1.6
                           }}>
                             {post.content || 'Untitled Post'}
                           </Typography>
-                          
-                          <Box sx={{ 
-                            display: 'flex', 
+
+                          <Box sx={{
+                            display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             pt: 2,
@@ -272,7 +234,7 @@ export default function FeedPage() {
                             <Button
                               startIcon={<CommentIcon sx={{ color: '#111933' }} />}
                               size="small"
-                              sx={{ 
+                              sx={{
                                 color: '#111933',
                                 textTransform: 'none',
                                 '&:hover': {
